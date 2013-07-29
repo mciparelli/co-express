@@ -1,0 +1,40 @@
+{
+  "name": "co-express",
+  "description": "An express wrapper that enables generators to be used as middlewares",
+  "version": "0.0.1",
+  "author": {
+    "name": "Martín Ciparelli",
+    "email": "mciparelli@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Martín Ciparelli",
+      "email": "mciparelli@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "co": "1.4.1",
+    "methods": "0.0.1"
+  },
+  "keywords": [
+    "web",
+    "express",
+    "route",
+    "middleware",
+    "generator",
+    "harmony",
+    "continuable"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mciparelli/co-express"
+  },
+  "main": "index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=v0.11.4"
+  },
+  "license": "MIT"
+}
