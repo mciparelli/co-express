@@ -19,6 +19,16 @@ app.get('/', function* (req, res) {
 app.listen(8000);
 ```
 
+You can also define multiple GeneratorFunctions for a simple route, and the good thing is that there is no need
+to call `next()`, they will yield in place so you can do:
+```js
+app.get('/users', function* (req, res) {
+  req.users = yield db.getUsers();
+}, function* (req, res) {
+  res.send(req.users);
+} );
+```
+
 ## Installation
 
     $ npm install co-express
