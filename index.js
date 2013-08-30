@@ -1,22 +1,15 @@
 var co = require('co');
+var each = require('co-each');
 var methods = require('methods');
-var createMiddleware = function (middlewares) {
-	return function (req, res) {
-		co(function* (req, res, middlewares) {
-			for (var i = 0, len = middlewares.length; i < len; i++) {
-				yield middlewares[i](req, res);
-			}
-		}, req, res, middlewares);
+var getMiddleware = function (gen) {
+	return function (req, res, next) {
+		return co(gen, req, res, next);
 	};
-}
+};
 var routeWrapper = function (route, context) {
 	return function (path) {
-		var args = [path];
-		var middlewares = Array.prototype.slice.call(arguments, 1);
-		if (middlewares.length) {
-			args.push(createMiddleware(middlewares));
-		}
-		return route.apply(context, args);
+		var generators = Array.prototype.slice.call(arguments, 1);
+		return route.apply(context, [path].concat(each(generators, getMiddleware)));
 	};
 };
 module.exports = function (app) {

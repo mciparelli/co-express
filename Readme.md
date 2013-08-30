@@ -19,11 +19,11 @@ app.get('/', function* (req, res) {
 app.listen(8000);
 ```
 
-You can also define multiple GeneratorFunctions for a simple route, and the good thing is that there is no need
-to call `next()`, they will yield in place so you can do:
+You can also define multiple GeneratorFunctions just the [express](https://github.com/visionmedia/express) way:
 ```js
-app.get('/users', function* (req, res) {
+app.get('/users', function* (req, res, next) {
   req.users = yield db.getUsers();
+  next();
 }, function* (req, res) {
   res.send(req.users);
 } );
