@@ -1,8 +1,11 @@
 var co = require('co');
 var each = require('co-each');
 var methods = require('methods');
+var isGenerator = function(f) {
+	return typeof f === 'function' && Object.getPrototypeOf(f) !== Object.getPrototypeOf(Function);
+};
 var getMiddleware = function (gen) {
-	return function (req, res, next) {
+	return !isGenerator(gen) ? gen : function (req, res, next) {
 		return co(gen, req, res, next);
 	};
 };
