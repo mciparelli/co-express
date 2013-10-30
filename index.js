@@ -30,6 +30,8 @@ module.exports = function (app) {
 		var method = methods[i];
 		app[method] = routeWrapper(app[method], app);
 	}
+	
+	app.del = app.delete;
 
 	return app;
 };
