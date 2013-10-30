@@ -27,7 +27,7 @@ var routeWrapper = function (route, context) {
 
 module.exports = function (app) {
 	for (var i = 0; i < methods.length; i++) {
-		var method = methods[i];
+		var method = methods[i] === "delete" ? "del" : methods[i];
 		app[method] = routeWrapper(app[method], app);
 	}
 
