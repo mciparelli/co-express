@@ -31,6 +31,7 @@ module.exports = function (app) {
 		app[method] = routeWrapper(app[method], app);
 	}
 	
+	app.param = routeWrapper(app.param, app);
 	app.del = app.delete;
 
 	return app;
