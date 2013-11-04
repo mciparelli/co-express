@@ -14,7 +14,7 @@ var getErrorHandler = function(next) {
 
 var getMiddleware = function (gen) {
 	return !isGenerator(gen) ? gen : function (req, res, next) {
-		return co(gen(req, res, next), getErrorHandler(next));
+		return co(gen.apply(null, arguments), getErrorHandler(next));
 	};
 };
 
