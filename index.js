@@ -14,7 +14,7 @@ var getErrorHandler = function(next) {
 
 var getMiddleware = function (gen) {
 	return !isGenerator(gen) ? gen : function (req, res, next) {
-		return co(gen(req, res, next), getErrorHandler(next));
+		return co(gen.apply(null, arguments), getErrorHandler(next));
 	};
 };
 
@@ -31,6 +31,7 @@ module.exports = function (app) {
 		app[method] = routeWrapper(app[method], app);
 	}
 	
+	app.param = routeWrapper(app.param, app);
 	app.del = app.delete;
 
 	return app;
