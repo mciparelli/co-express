@@ -1,6 +1,6 @@
 **co-express** is an express wrapper that enables generators to be used as middlewares.
 
-[![NPM version](https://badge.fury.io/js/co-express.png)](http://badge.fury.io/js/co-express) [![Dependency Status](https://david-dm.org/mciparelli/co-express.png)](https://david-dm.org/mciparelli/co-express) [![devDependency Status](https://david-dm.org/mciparelli/co-express/dev-status.png)](https://david-dm.org/mciparelli/co-express#info=devDependencies)
+[![NPM version](https://badge.fury.io/js/co-express.png)](http://badge.fury.io/js/co-express) [![Build Status](https://travis-ci.org/mciparelli/co-express.png?branch=master)](https://travis-ci.org/mciparelli/co-express) [![Dependency Status](https://david-dm.org/mciparelli/co-express.png)](https://david-dm.org/mciparelli/co-express) [![devDependency Status](https://david-dm.org/mciparelli/co-express/dev-status.png)](https://david-dm.org/mciparelli/co-express#info=devDependencies)
 
 ## Usage
 
