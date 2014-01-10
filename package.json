@@ -13,9 +13,9 @@
     }
   ],
   "dependencies": {
-    "co": "1.5.2",
-    "co-each": "0.1.0",
-    "methods": "0.0.1"
+    "co": "3.0.x",
+    "co-each": "0.1.x",
+    "methods": "0.1.x"
   },
   "keywords": [
     "web",
