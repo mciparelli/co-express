@@ -39,9 +39,9 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "supertest": "~0.7.1",
-    "mocha": "~1.12.1",
-    "express": "~3.4.0",
-    "should": "~1.2.2"
+    "supertest": "~0.8",
+    "mocha": "~1.17",
+    "express": "~3.4",
+    "should": "~2.1"
   }
 }
