@@ -1,5 +1,7 @@
 **co-express** is an express wrapper that enables generators to be used as middlewares.
 
+[![NPM version](https://badge.fury.io/js/co-express.png)](http://badge.fury.io/js/co-express) [![Dependency Status](https://david-dm.org/mciparelli/co-express.png)](https://david-dm.org/mciparelli/co-express) [![devDependency Status](https://david-dm.org/mciparelli/co-express/dev-status.png)](https://david-dm.org/mciparelli/co-express#info=devDependencies)
+
 ## Usage
 
 **co-express** lets you write your express routes by using generator functions as middlewares.
@@ -16,6 +18,7 @@ app.get('/', function *(req, res) {
   var packageContents = yield fs.readFile('./package.json', 'utf8');
   res.send(packageContents);
 });
+
 app.listen(8000);
 ```
 
