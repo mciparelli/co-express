@@ -14,7 +14,8 @@ var getErrorHandler = function(next) {
 
 var getMiddleware = function (gen) {
 	return !isGenerator(gen) ? gen : function (req, res, next) {
-		return co(gen).call(null, req, res, next, getErrorHandler(next));
+		var args = Array.prototype.slice.call(arguments);
+		return co(gen).apply(null, args.concat(getErrorHandler(next)));
 	};
 };
 
