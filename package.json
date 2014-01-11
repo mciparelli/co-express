@@ -1,7 +1,7 @@
 {
   "name": "co-express",
   "description": "An express wrapper that enables generators to be used as middlewares",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "author": {
     "name": "Martín Ciparelli",
     "email": "mciparelli@gmail.com"
@@ -10,12 +10,16 @@
     {
       "name": "Martín Ciparelli",
       "email": "mciparelli@gmail.com"
+    },
+    {
+      "name": "Alexey Simonenko",
+      "email": "alexey@simonenko.su"
     }
   ],
   "dependencies": {
-    "co": "1.5.2",
-    "co-each": "0.1.0",
-    "methods": "0.0.1"
+    "co": "3.0.x",
+    "co-each": "0.1.x",
+    "methods": "0.1.x"
   },
   "keywords": [
     "web",
@@ -39,9 +43,9 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "supertest": "~0.7.1",
-    "mocha": "~1.12.1",
-    "express": "~3.4.0",
-    "should": "~1.2.2"
+    "supertest": "~0.8",
+    "mocha": "~1.17",
+    "express": "~3.4",
+    "should": "~2.1"
   }
 }

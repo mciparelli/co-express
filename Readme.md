@@ -1,37 +1,43 @@
 **co-express** is an express wrapper that enables generators to be used as middlewares.
 
+[![NPM version](https://badge.fury.io/js/co-express.png)](http://badge.fury.io/js/co-express) [![Build Status](https://travis-ci.org/mciparelli/co-express.png?branch=master)](https://travis-ci.org/mciparelli/co-express) [![Dependency Status](https://david-dm.org/mciparelli/co-express.png)](https://david-dm.org/mciparelli/co-express) [![devDependency Status](https://david-dm.org/mciparelli/co-express/dev-status.png)](https://david-dm.org/mciparelli/co-express#info=devDependencies)
+
 ## Usage
 
 **co-express** lets you write your express routes by using generator functions as middlewares.
 Like this:
 
 ```js
-var fs = require('fs');
-var co = require('co');
+var fs = require('co-fs');
 var express = require('express');
 var wrapper = require('co-express');
+
 var app = wrapper(express());
-app.get('/', function* (req, res) {
-  var read = co.wrap(fs.readFile);
-  var packageContents = yield read('./package.json', 'utf8');
+
+app.get('/', function *(req, res) {
+  var packageContents = yield fs.readFile('./package.json', 'utf8');
   res.send(packageContents);
 });
+
 app.listen(8000);
 ```
 
-You can also define multiple GeneratorFunctions just the [express](https://github.com/visionmedia/express) way:
+You can also define multiple generator functions just the [express](https://github.com/visionmedia/express) way:
+
 ```js
-app.get('/users', function* (req, res, next) {
+app.get('/users', function *(req, res, next) {
   req.users = yield db.getUsers();
   next();
-}, function* (req, res) {
+}, function *(req, res) {
   res.send(req.users);
-} );
+});
 ```
 
 ## Installation
 
-    $ npm install co-express
+```bash
+$ npm install co-express
+```
 
 ## License 
 

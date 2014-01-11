@@ -1,22 +1,29 @@
 var express = require('express'),
     wrapper = require('../index'),
-    co = require('co'),
     should = require('should'),
     request = require('supertest');
 
-var thunk = co.wrap(function(err, cb) {
-  cb(err, 'thunk');
-});
+function asyncText(err, text, cb) {
+  setImmediate(function() {
+    cb(err, text);
+  });
+}
+
+function thunk(err, text) {
+  return function(cb) {
+    asyncText(err, text, cb);
+  };
+}
 
 describe('co-express', function() {
   it('supports multiple generator/function routes', function(done) {
     var app = wrapper(express());
 
-    app.get('/', function*(req, res, next) {
-      req.val = yield thunk(null);
+    app.get('/', function *(req, res, next) {
+      req.val = yield thunk(null, 'thunk');
       next();
-    }, function*(req, res, next) {
-      req.val += yield thunk(null);
+    }, function *(req, res, next) {
+      req.val += yield thunk(null, 'thunk');
       next();
     }, function(req, res) {
       res.send(req.val + 'func');
@@ -34,7 +41,7 @@ describe('co-express', function() {
   it('passes uncaught exceptions', function(done) {
     var app = wrapper(express());
 
-    app.get('/', function*(req, res, next) {
+    app.get('/', function *(req, res, next) {
       var val = yield thunk(new Error('thunk error'));
       res.send(val);
     });
