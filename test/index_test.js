@@ -19,10 +19,10 @@ describe('co-express', function() {
   it('supports multiple generator/function routes', function(done) {
     var app = wrapper(express());
 
-    app.get('/', function *(req, res, next) {
+    app.get('/', function* (req, res, next) {
       req.val = yield thunk(null, 'thunk');
       next();
-    }, function *(req, res, next) {
+    }, function* (req, res, next) {
       req.val += yield thunk(null, 'thunk');
       next();
     }, function(req, res) {
@@ -41,7 +41,7 @@ describe('co-express', function() {
   it('passes uncaught exceptions', function(done) {
     var app = wrapper(express());
 
-    app.get('/', function *(req, res, next) {
+    app.get('/', function* (req, res, next) {
       var val = yield thunk(new Error('thunk error'));
       res.send(val);
     });

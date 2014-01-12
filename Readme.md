@@ -14,7 +14,7 @@ var wrapper = require('co-express');
 
 var app = wrapper(express());
 
-app.get('/', function *(req, res) {
+app.get('/', function* (req, res) {
   var packageContents = yield fs.readFile('./package.json', 'utf8');
   res.send(packageContents);
 });
@@ -25,10 +25,10 @@ app.listen(8000);
 You can also define multiple generator functions just the [express](https://github.com/visionmedia/express) way:
 
 ```js
-app.get('/users', function *(req, res, next) {
+app.get('/users', function* (req, res, next) {
   req.users = yield db.getUsers();
   next();
-}, function *(req, res) {
+}, function* (req, res) {
   res.send(req.users);
 });
 ```

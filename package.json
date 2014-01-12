@@ -16,11 +16,6 @@
       "email": "alexey@simonenko.su"
     }
   ],
-  "dependencies": {
-    "co": "3.0.x",
-    "co-each": "0.1.x",
-    "methods": "0.1.x"
-  },
   "keywords": [
     "web",
     "express",
@@ -42,6 +37,11 @@
     "node": ">=v0.11.4"
   },
   "license": "MIT",
+  "dependencies": {
+    "co": "3.0.x",
+    "co-each": "0.1.x",
+    "methods": "0.1.x"
+  },
   "devDependencies": {
     "supertest": "~0.8",
     "mocha": "~1.17",
