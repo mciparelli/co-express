@@ -10,27 +10,27 @@ Like this:
 ```js
 var fs = require('co-fs');
 var express = require('express');
-var wrapper = require('co-express');
+var wrap = require('co-express');
 
-var app = wrapper(express());
+var app = express();
 
-app.get('/', function* (req, res) {
+app.get('/', wrap(function* (req, res) {
   var packageContents = yield fs.readFile('./package.json', 'utf8');
   res.send(packageContents);
-});
+}));
 
 app.listen(8000);
 ```
 
-You can also define multiple generator functions just the [express](https://github.com/visionmedia/express) way:
+You can also define multiple generator functions just the [express](https://github.com/visionmedia/express) way, as long as you wrap them and call `next()`:
 
 ```js
-app.get('/users', function* (req, res, next) {
+app.get('/users', wrap(function* (req, res, next) {
   req.users = yield db.getUsers();
   next();
-}, function* (req, res) {
+}), wrap(function* (req, res) {
   res.send(req.users);
-});
+}));
 ```
 
 ## Installation
@@ -39,7 +39,7 @@ app.get('/users', function* (req, res, next) {
 $ npm install co-express
 ```
 
-## License 
+## License
 
 (The MIT License)
 

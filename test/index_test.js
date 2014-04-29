@@ -1,5 +1,5 @@
 var express = require('express'),
-    wrapper = require('../index'),
+    wrap = require('../index'),
     should = require('should'),
     request = require('supertest');
 
@@ -16,18 +16,34 @@ function thunk(err, text) {
 }
 
 describe('co-express', function() {
-  it('supports multiple generator/function routes', function(done) {
-    var app = wrapper(express());
+  it('supports a single generator route', function(done) {
+    var app = express();
 
-    app.get('/', function* (req, res, next) {
+    app.get('/', wrap(function* (req, res, next) {
+      res.send('it works!');
+    }));
+
+    request(app)
+      .get('/')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('it works!');
+        done();
+      });
+  });
+
+  it('supports multiple generator routes', function(done) {
+    var app = express();
+
+    app.get('/', wrap(function* (req, res, next) {
       req.val = yield thunk(null, 'thunk');
       next();
-    }, function* (req, res, next) {
+    }), wrap(function* (req, res, next) {
       req.val += yield thunk(null, 'thunk');
       next();
-    }, function(req, res) {
+    }), wrap(function* (req, res) {
       res.send(req.val + 'func');
-    });
+    }));
 
     request(app)
       .get('/')
@@ -38,13 +54,32 @@ describe('co-express', function() {
       });
   });
 
-  it('passes uncaught exceptions', function(done) {
-    var app = wrapper(express());
+  it('doesn\'t alter application object', function(done) {
+    var app = express();
 
-    app.get('/', function* (req, res, next) {
+    app.get('/', wrap(function* (req, res, next) {
+      res.send('it works!');
+    }));
+
+    app.set('it', 'works!');
+
+    request(app)
+      .get('/')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('it works!');
+        app.get('it').should.equal('works!');
+        done();
+      });
+  });
+
+  it('passes uncaught exceptions', function(done) {
+    var app = express();
+
+    app.get('/', wrap(function* (req, res, next) {
       var val = yield thunk(new Error('thunk error'));
       res.send(val);
-    });
+    }));
 
     app.use(function(err, req, res, next) {
       if (err && err.message === 'thunk error') {
@@ -59,6 +94,31 @@ describe('co-express', function() {
       .end(function(err, res) {
         should.not.exist(err);
         res.text.should.equal('caught');
+        done();
+      });
+  });
+
+  it('supports app.route()', function(done) {
+    var app = express();
+
+    var books = app.route('/books');
+
+    books.get(wrap(function* (req, res, next) {
+      req.val = yield thunk(null, 'thunk');
+      next();
+    }), wrap(function* (req, res, next) {
+      req.val += yield thunk(null, 'thunk');
+      next();
+    }), wrap(function* (req, res) {
+      res.send(req.val + 'func');
+    }));
+
+
+    request(app)
+      .get('/books')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('thunkthunkfunc');
         done();
       });
   });
