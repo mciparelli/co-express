@@ -38,12 +38,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "co": "^3.0.5"
+    "co": "^3.1.0"
   },
   "devDependencies": {
-    "supertest": "^0.11.0",
-    "mocha": "^1.18.2",
-    "express": "^4.1.1",
-    "should": "^3.3.1"
+    "express": "^4.9.5",
+    "mocha": "^1.21.4",
+    "should": "^4.0.4",
+    "supertest": "^0.14.0"
   }
 }
