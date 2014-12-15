@@ -9,7 +9,7 @@ var getErrorHandler = function(next) {
 var getMiddleware = function (gen) {
 	return function (req, res, next) {
 		var args = Array.prototype.slice.call(arguments);
-		return co(gen).apply(null, args.concat(getErrorHandler(next)));
+		return co.wrap(gen).apply(null, args).catch(getErrorHandler(next));
 	};
 };
 
