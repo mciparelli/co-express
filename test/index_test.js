@@ -98,6 +98,31 @@ describe('co-express', function() {
       });
   });
 
+  it('supports error routes', function(done) {
+    var app = express();
+
+    app.get('/', wrap(function* (req, res, next) {
+      var val = yield thunk(new Error('thunk error'));
+      res.send(val);
+    }));
+
+    app.use(wrap(function* (err, req, res, next) {
+      if (err && err.message === 'thunk error') {
+        res.send('caught');
+      } else {
+        next(err);
+      }
+    }));
+
+    request(app)
+      .get('/')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('caught');
+        done();
+      });
+  });
+
   it('supports app.route()', function(done) {
     var app = express();
 
