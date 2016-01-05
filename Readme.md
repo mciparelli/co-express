@@ -8,7 +8,7 @@
 Like this:
 
 ```js
-var fs = require('co-fs');
+var fs = require('mz/fs');
 var express = require('express');
 var wrap = require('co-express');
 
