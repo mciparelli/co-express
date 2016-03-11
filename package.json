@@ -37,8 +37,8 @@
     "node": ">=v0.11.4"
   },
   "license": "MIT",
-  "dependencies": {
-    "co": "^4.0.1"
+  "peerDependencies": {
+    "co": ">=4.x"
   },
   "devDependencies": {
     "express": "^4.10.6",
