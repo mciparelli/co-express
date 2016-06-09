@@ -43,7 +43,7 @@
   "devDependencies": {
     "express": "^4.10.6",
     "mocha": "^2.0.1",
-    "should": "^7.0.2",
+    "should": "^9.0.0",
     "supertest": "^1.0.1"
   }
 }
