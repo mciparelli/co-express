@@ -73,6 +73,30 @@ describe('co-express', function() {
       });
   });
 
+
+  it('supports param', function(done) {
+    var app = express();
+    const map = {
+      33: 'user number 33'
+    };
+    app.param('id', wrap(function* (req, res, next, id) {
+      id.should.equal('33');
+      req.user = map[id];
+      next();
+    }));
+    app.get('/:id', wrap(function* (req, res, next) {
+      res.send(req.user);
+    }));
+
+    request(app)
+      .get('/33')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('user number 33');
+        done();
+      });
+  });
+
   it('passes uncaught exceptions', function(done) {
     var app = express();
 
