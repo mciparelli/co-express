@@ -42,8 +42,8 @@
   },
   "devDependencies": {
     "express": "^4.14.0",
-    "mocha": "^2.5.3",
-    "should": "^9.0.2",
-    "supertest": "^1.2.0"
+    "mocha": "^3.0.2",
+    "should": "^10.0.0",
+    "supertest": "^2.0.0"
   }
 }
