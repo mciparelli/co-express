@@ -97,6 +97,64 @@ describe('co-express', function() {
       });
   });
 
+  it('supports param and catches errors thrown in generator', function(done) {
+    var app = express();
+    const map = {
+      33: 'user number 33'
+    };
+    app.param('id', wrap(function* (req, res, next, id) {
+      id.should.equal('33');
+      req.user = map[id];
+      throw new Error('param test error');
+    }));
+    app.get('/:id', wrap(function* (req, res, next) {
+      res.send(req.user);
+    }));
+    app.use(wrap(function* (err, req, res, next) {
+      err.message.should.equal('param test error');
+      if (err) {
+          res.status(500).send(err.message);
+      }
+    }));
+
+    request(app)
+      .get('/33')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('param test error');
+        done();
+      });
+  });
+
+  it('supports param and catches errors called with next', function(done) {
+    var app = express();
+    const map = {
+      33: 'user number 33'
+    };
+    app.param('id', wrap(function* (req, res, next, id) {
+      id.should.equal('33');
+      req.user = map[id];
+      next(new Error('param test error'));
+    }));
+    app.get('/:id', wrap(function* (req, res, next) {
+      res.send(req.user);
+    }));
+    app.use(wrap(function* (err, req, res, next) {
+      err.message.should.equal('param test error');
+      if (err) {
+          res.status(500).send(err.message);
+      }
+    }));
+
+    request(app)
+      .get('/33')
+      .end(function(err, res) {
+        should.not.exist(err);
+        res.text.should.equal('param test error');
+        done();
+      });
+  });
+
   it('passes uncaught exceptions', function(done) {
     var app = express();
 

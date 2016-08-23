@@ -5,7 +5,12 @@ module.exports = function wrap(gen) {
 
   if (gen.length === 4) {
     return function(err, req, res, next) {
-      return fn(err, req, res, next).catch(next);
+      var isParam = !(err instanceof Error);
+      var callNextRoute = next;
+      if (isParam) {
+        callNextRoute = res;
+      }
+      return fn(err, req, res, next).catch(callNextRoute);
     }
   }
 
