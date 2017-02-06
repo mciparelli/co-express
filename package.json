@@ -37,7 +37,7 @@
     "node": ">=v0.11.4"
   },
   "license": "MIT",
-  "dependencies": {
+  "optionalDependencies": {
     "co": "^4.6.0"
   },
   "devDependencies": {

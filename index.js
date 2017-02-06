@@ -1,7 +1,11 @@
-var co = require('co');
+try {
+  var defaultCo = require('co');
+} catch (err) {}
 
-module.exports = function wrap(gen) {
-  var fn = co.wrap(gen);
+module.exports = function wrap(gen, co) {
+  if (!co) co = defaultCo.wrap;
+
+  var fn = co(gen);
 
   if (gen.length === 4) {
     return function(err, req, res, next) {
