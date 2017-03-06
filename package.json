@@ -1,7 +1,7 @@
 {
   "name": "co-express",
   "description": "An express wrapper that enables generators to be used as middlewares",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "author": {
     "name": "Martín Ciparelli",
     "email": "mciparelli@gmail.com"
