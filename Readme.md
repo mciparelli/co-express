@@ -33,11 +33,22 @@ app.get('/users', wrap(function* (req, res, next) {
 }));
 ```
 
+### Usage with other libraries
+
+Starting from v2, you can pass your own wrapper function as a second argument.
+
+This argument will be used instead of `co.wrap`.
+
+The support of this wrapper library when used with this extra argument is untested
+and may vary from library to library.
+
+
 ## Installation
 
 ```bash
 $ npm install co-express
 ```
+
 
 ## License
 
